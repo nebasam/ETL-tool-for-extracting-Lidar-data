@@ -11,7 +11,7 @@ jobs:
     - uses: actions/checkout@v2
     - name: cml_run
       run: | 
-        python src/script.py
+        python src/scripts.py
     - name: run-tests
       run: |
         python -m unittest tests.unittesting
