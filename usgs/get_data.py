@@ -5,7 +5,8 @@ from pyproj import Transformer
 
 PUBLIC_DATA_PATH = "https://s3-us-west-2.amazonaws.com/usgs-lidar-public/"
 
-REGION = "USGS_LPC_CO_SoPlatteRiver_Lot5_2013_LAS_2015/"
+
+REGION = "IA_FullState/"
 
 MINX, MINY, MAXX, MAXY = [-93.756155, 41.918015, -93.747334, 41.921429]
 BOUNDS = f"({[MINX,MAXX]},{[MINY,MAXY]})"
