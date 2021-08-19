@@ -2,7 +2,7 @@ import unittest
 import sys, os
 sys.path.append(os.path.abspath(os.path.join('..')))
 
-from src.scripts import find_average, count_occurence
+from usgs.scripts import find_average, count_occurence
 
 
 class TestCases(unittest.TestCase):
