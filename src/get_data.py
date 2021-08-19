@@ -24,8 +24,8 @@ def get_raster_terrain(bounds:str , region:str , public_access_path =     PUBLIC
 
     the_json['pipeline'][0]['bounds']=bounds
     the_json['pipeline'][0]['filename']=public_access_path
-    the_json['pipeline'][5]['filename']=output_filename_laz
-    the_json['pipeline'][6]['filename']=ouput_filename_tif
+    the_json['pipeline'][3]['filename']=output_filename_laz
+    the_json['pipeline'][4]['filename']=ouput_filename_tif
 
     pipeline = pdal.Pipeline(json.dumps(the_json))
 
