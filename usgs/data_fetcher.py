@@ -173,4 +173,4 @@ if __name__ == "__main__":
 
     elevation = df.get_elevation_geodf()
 
-    elevation.sample(10)
+    print(elevation.sample(10))
