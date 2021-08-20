@@ -1,0 +1,31 @@
+[
+    {
+"bounds": "",
+"filename": "https://s3-us-west-2.amazonaws.com/usgs-lidar-public/IA_FullState/ept.json",
+"type": "readers.ept",
+"tag": "readdata"
+        },
+        {
+            "type":"filters.crop",
+            "polygon": ""
+        },
+        
+        {
+            "limits": "Classification![7:7]",
+            "type": "filters.range",
+            "tag": "nonoise"
+        },
+        {
+            "assignment": "Classification[:]=0",
+            "tag": "wipeclasses",
+            "type": "filters.assign"
+        },
+        {
+            
+            "in_srs":"EPSG:3857 ",
+
+            "out_srs": "",
+            "tag": "reprojectUTM",
+            "type": "filters.reprojection"
+        }
+  ]
