@@ -1,0 +1,21 @@
+20-08-2021 23:11:40 - [INFO] -  file_read - (file_read.py).read_json(line 31) - Json file read from ./get_data.json.
+20-08-2021 23:11:40 - [INFO] -  FetchData - (<ipython-input-8-54b747acc882>).__init__(line 11) - Successfully Instantiated FetchData Class Object
+20-08-2021 23:18:30 - [INFO] -  file_read - (file_read.py).read_json(line 31) - Json file read from ./get_data.json.
+20-08-2021 23:18:30 - [INFO] -  file_read - (file_read.py).read_json(line 31) - Json file read from ./get_data.json.
+20-08-2021 23:18:30 - [INFO] -  FetchData - (<ipython-input-11-51064d695316>).__init__(line 12) - Successfully Instantiated FetchData Class Object
+20-08-2021 23:20:38 - [ERROR] -  __main__ - (<ipython-input-11-51064d695316>).run_pipeline(line 60) - Pipeline execution failed
+Traceback (most recent call last):
+  File "<ipython-input-11-51064d695316>", line 56, in run_pipeline
+    pipeline.execute()
+  File "/home/neba/.conda/envs/data/lib/python3.9/site-packages/pdal/pipeline.py", line 40, in execute
+    return self.p.execute()
+  File "libpdalpython.pyx", line 180, in pdal.libpdalpython.PyPipeline.execute
+RuntimeError: readers.ept: Error reading tile: Could not read from s3-us-west-2.amazonaws.com/usgs-lidar-public/IA_FullState/ept-data/4-7-7-8.laz
+20-08-2021 23:20:38 - [ERROR] -  __main__ - (<ipython-input-11-51064d695316>).run_pipeline(line 60) - Pipeline execution failed
+Traceback (most recent call last):
+  File "<ipython-input-11-51064d695316>", line 56, in run_pipeline
+    pipeline.execute()
+  File "/home/neba/.conda/envs/data/lib/python3.9/site-packages/pdal/pipeline.py", line 40, in execute
+    return self.p.execute()
+  File "libpdalpython.pyx", line 180, in pdal.libpdalpython.PyPipeline.execute
+RuntimeError: readers.ept: Error reading tile: Could not read from s3-us-west-2.amazonaws.com/usgs-lidar-public/IA_FullState/ept-data/4-7-7-8.laz
