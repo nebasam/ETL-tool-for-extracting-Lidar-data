@@ -75,7 +75,7 @@ class FetchData():
         try: 
             pipeline.execute()
             self.logger.info(f'Pipeline executed successfully.')
-            return self.pipeline
+            return pipeline
         except RuntimeError as e:
             self.logger.exception('Pipeline execution failed')
             print(e)
