@@ -80,11 +80,11 @@ class FetchData():
             self.logger.exception('Pipeline execution failed')
             print(e)
 
-    def make_geo_df(self, arr):
+    def make_geo_df(self):
         try:
             elevations =[]
             geometry_points=[]
-            for row in self.arr()[0]:
+            for row in self.get_pipeline_arrays()[0]:
                 lst = row.tolist()[-3:]
                 elevations.append(lst[2])
                 point = Point(lst[0], lst[1])
@@ -99,12 +99,12 @@ class FetchData():
         except RuntimeError as e:
             self.logger.exception('fails to extract geo data frame')
             print(e)
-        
+    def get_pipeline_arrays(self):
+        return self.pipeline.arrays    
      
     def get_data(self):
         self.pipeline = self.execute_pipeline()
-        self.arr = self.pipeline.arrays
-        return self.make_geo_df(self.arr)
+        return self.make_geo_df()
 if(__name__ == '__main__'):
     MINX, MINY, MAXX, MAXY = [-93.756155, 41.918015, -93.756055, 41.918115]
     polygon = Polygon(((MINX, MINY), (MINX, MAXY), (MAXX, MAXY), (MAXX, MINY), (MINX, MINY)))
