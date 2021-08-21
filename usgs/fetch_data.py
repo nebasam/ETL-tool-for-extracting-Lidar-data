@@ -48,7 +48,10 @@ class FetchData():
             self.logger.exception(
                 'Failed to Extract Polygon margin and Polygon Input')
     def get_pipeline(self, output_filename: str = "temp"):
-        try: 
+
+        try:
+            with open(self.json_path) as json_file:
+               self.pipeline_json = json.load(json_file) 
             extraction_boundaries, polygon_input = self.get_polygon_margin(polygon,self.epsg)
             full_dataset_path = f"{self.public_data_url}{self.region}/ept.json"
             self.pipeline_json['pipeline'][0]['filename'] = full_dataset_path
