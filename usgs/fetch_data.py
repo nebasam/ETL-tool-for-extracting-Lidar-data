@@ -58,11 +58,12 @@ class FetchData():
             self.pipeline_json['pipeline'][0]['bounds'] = extraction_boundaries
             self.pipeline_json['pipeline'][1]['polygon'] = polygon_input
             self.pipeline_json['pipeline'][3]['out_srs'] = f'EPSG:{self.epsg}'
-            self.pipeline_json['pipeline'][4]['filename'] = "output_filename" + ".laz"
-            self.pipeline_json['pipeline'][5]['filename'] = "output_filename" + ".tif"
+            self.pipeline_json['pipeline'][4]['filename'] = output_filename + ".laz"
+            self.pipeline_json['pipeline'][5]['filename'] = output_filename + ".tif"
 
             pipeline = pdal.Pipeline(json.dumps(self.pipeline_json))
             self.logger.info(f'extracting pipeline successfull.')
+            print(pipeline)
             return pipeline  
                 
         except RuntimeError as e:
