@@ -81,15 +81,26 @@ class FetchData():
             print(e)
 
     def make_geo_df(self, arr):
-        geometry_points = [Point(x, y) for x, y in zip(arr["X"], arr["Y"])]
-        elevations = arr["Z"]
-        df = gpd.GeoDataFrame(columns=["elevation", "geometry"])
-        df['elevation'] = elevations
-        df['geometry'] = geometry_points
-        df = df.set_geometry("geometry")
-        df.set_crs(self.output_epsg, inplace=True)
-        return df
-
+        try:
+            elevations =[]
+            geometry_points=[]
+            for row in self.get_pipeline_arrays()[0]:
+                lst = row.tolist()[-3:]
+                elevations.append(lst[2])
+                point = Point(lst[0], lst[1])
+                geometry_points.append(point)
+            geodf = gpd.GeoDataFrame(columns=["elevation", "geometry"])
+            geodf['elevation'] = elevations
+            geodf['geometry'] = geometry_points
+            geodf = geodf.set_geometry("geometry")
+            geodf.set_crs(self.epsg, inplace=True)
+            self.logger.info(f'extracts geo dataframe')
+            return geodf
+        except RuntimeError as e:
+            self.logger.exception('fails to extract geo data frame')
+            print(e)
+        
+     
     def get_data(self):
         self.pipeline = self.execute_pipeline()
         arr = self.pipeline.arrays
