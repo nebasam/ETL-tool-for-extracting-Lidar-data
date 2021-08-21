@@ -104,7 +104,7 @@ class FetchData():
     def get_data(self):
         self.pipeline = self.execute_pipeline()
         self.arr = self.pipeline.arrays
-        return self.make_geo_df(arr)
+        return self.make_geo_df(self.arr)
 if(__name__ == '__main__'):
     MINX, MINY, MAXX, MAXY = [-93.756155, 41.918015, -93.756055, 41.918115]
     polygon = Polygon(((MINX, MINY), (MINX, MAXY), (MAXX, MAXY), (MAXX, MINY), (MINX, MINY)))
