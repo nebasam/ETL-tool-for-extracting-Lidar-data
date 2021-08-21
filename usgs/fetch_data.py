@@ -1,6 +1,7 @@
 import pdal
 import json
 import geopandas as gpd
+from json import load, dumps
 from shapely.geometry import Polygon, Point
 import sys
 from logger import Logger
@@ -35,7 +36,7 @@ class FetchData():
             xcords, ycords = gd_df['geometry'][0].exterior.coords.xy
             for x, y in zip(list(xcords), list(ycords)):
                 polygon_input += f'{x} {y}, '
-            polygon_input = polygon_input[:-1]
+            polygon_input = polygon_input[:-2]
             polygon_input += '))'
             extraction_boundaries = f"({[minx, maxx]},{[miny,maxy]})"
             print(polygon_input)
@@ -46,47 +47,31 @@ class FetchData():
         except Exception as e:
             self.logger.exception(
                 'Failed to Extract Polygon margin and Polygon Input')
-    def get_pipeline(self, file_name: str, resolution: int = 1, window_size: int = 6, tif_values: list = ["all"]):
-        extraction_boundaries, polygon_input = self.get_polygon_margin(polygon,self.epsg)
-        self.pipeline = []
-        read = self.pipeline_json['read']
-        read['bounds'] = extraction_boundaries
-        read['filename'] = self.public_data_url + self.region + "/ept.json"
-        self.pipeline.append(read)
-       
-        polygon_input = self.pipeline_json['polygon_input']
-        polygon_input['polygon'] = polygon_input
-        self.pipeline.append(polygon_input)
+    def get_pipeline(self, output_filename: str = "temp"):
+        try: 
+            extraction_boundaries, polygon_input = self.get_polygon_margin(polygon,self.epsg)
+            full_dataset_path = f"{self.public_data_url}{self.region}/ept.json"
+            self.pipeline_json['pipeline'][0]['filename'] = full_dataset_path
+            self.pipeline_json['pipeline'][0]['bounds'] = extraction_boundaries
+            self.pipeline_json['pipeline'][1]['polygon'] = polygon_input
+            self.pipeline_json['pipeline'][3]['out_srs'] = f'EPSG:{self.epsg}'
+            self.pipeline_json['pipeline'][4]['filename'] = "../data/laz/" + output_filename + ".laz"
+            self.pipeline_json['pipeline'][5]['filename'] = "../data/tif/" + output_filename + ".tif"
 
-        self.pipeline.append(self.pipeline_json['range_filter'])
-        self.pipeline.append(self.pipeline_json['assign_filter'])
-
-        reprojection = self.pipeline_json['reprojection_filter']
-        reprojection['out_srs'] = f"EPSG:{self.epsg}"
-        self.pipeline.append(reprojection)
-
-        
-        self.pipeline.append(self.pipeline_json['smr_filter'])
-        self.pipeline.append(self.pipeline_json['smr_range_filter'])
-
-        laz_writer = self.pipeline_json['laz_writer']
-        laz_writer['filename'] = f"{file_name}_{self.region}.laz"
-        self.pipeline.append(laz_writer)
-
-        tif_writer = self.pipeline_json['tif_writer']
-        tif_writer['filename'] = f"{file_name}_{self.region}.tif"
-        tif_writer['output_type'] = tif_values
-        tif_writer["resolution"] = resolution
-        tif_writer["window_size"] = window_size
-        self.pipeline.append(tif_writer)
-
-        self.pipeline = pdal.Pipeline(json.dumps(self.pipeline_json))
-        return self.pipeline    
+            pipeline = pdal.Pipeline(json.dumps(self.pipeline_json))
+            self.logger.info(f'extracting pipeline successfull.')
+            return pipeline  
+                
+        except RuntimeError as e:
+            self.logger.exception('Pipeline extraction failed')
+            print(e)
+            
         
     def execute_pipeline(self):
+        pipeline = self.get_pipeline()
         
-        try:
-            self.pipeline.execute()
+        try: 
+            pipeline.execute()
             self.logger.info(f'Pipeline executed successfully.')
             return self.pipeline
         except RuntimeError as e:
@@ -105,7 +90,7 @@ class FetchData():
 
     def get_data(self):
         self.pipeline = self.execute_pipeline()
-        arr = self.pipeline.arrays[0]
+        arr = self.pipeline.arrays
         return self.make_geo_df(arr)
 if(__name__ == '__main__'):
     MINX, MINY, MAXX, MAXY = [-93.756155, 41.918015, -93.756055, 41.918115]
