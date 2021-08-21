@@ -93,7 +93,7 @@ class FetchData():
             geodf['elevation'] = elevations
             geodf['geometry'] = geometry_points
             geodf = geodf.set_geometry("geometry")
-            geodf.set_crs(self.epsg, inplace=True)
+            geodf.set_crs(epsg = self.epsg, inplace=True)
             self.logger.info(f'extracts geo dataframe')
             return geodf
         except RuntimeError as e:
