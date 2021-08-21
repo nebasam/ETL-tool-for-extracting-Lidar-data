@@ -1,7 +1,6 @@
 import pdal
 import json
 import geopandas as gpd
-from json import load, dumps
 from shapely.geometry import Polygon, Point
 import sys
 from logger import Logger
@@ -60,7 +59,6 @@ class FetchData():
             self.pipeline_json['pipeline'][3]['out_srs'] = f'EPSG:{self.epsg}'
             self.pipeline_json['pipeline'][4]['filename'] = output_filename + ".laz"
             self.pipeline_json['pipeline'][5]['filename'] = output_filename + ".tif"
-
             pipeline = pdal.Pipeline(json.dumps(self.pipeline_json))
             self.logger.info(f'extracting pipeline successfull.')
             print(pipeline)
