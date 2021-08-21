@@ -84,7 +84,7 @@ class FetchData():
         try:
             elevations =[]
             geometry_points=[]
-            for row in self.get_pipeline_arrays()[0]:
+            for row in self.arr()[0]:
                 lst = row.tolist()[-3:]
                 elevations.append(lst[2])
                 point = Point(lst[0], lst[1])
@@ -103,7 +103,7 @@ class FetchData():
      
     def get_data(self):
         self.pipeline = self.execute_pipeline()
-        arr = self.pipeline.arrays
+        self.arr = self.pipeline.arrays
         return self.make_geo_df(arr)
 if(__name__ == '__main__'):
     MINX, MINY, MAXX, MAXY = [-93.756155, 41.918015, -93.756055, 41.918115]
