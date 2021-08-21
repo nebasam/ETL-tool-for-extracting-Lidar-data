@@ -46,7 +46,7 @@ class FetchData():
         except Exception as e:
             self.logger.exception(
                 'Failed to Extract Polygon margin and Polygon Input')
-    def get_pipeline(self, output_filename: str = "temp"):
+    def get_pipeline(self, output_filename: str = "farm_land_IA_FullState"):
 
         try:
             with open(self.json_path) as json_file:
@@ -57,8 +57,8 @@ class FetchData():
             self.pipeline_json['pipeline'][0]['bounds'] = extraction_boundaries
             self.pipeline_json['pipeline'][1]['polygon'] = polygon_input
             self.pipeline_json['pipeline'][3]['out_srs'] = f'EPSG:{self.epsg}'
-            self.pipeline_json['pipeline'][4]['filename'] = output_filename + ".laz"
-            self.pipeline_json['pipeline'][5]['filename'] = output_filename + ".tif"
+            self.pipeline_json['pipeline'][4]['filename'] = "../data/laz/" + output_filename + ".laz"
+            self.pipeline_json['pipeline'][5]['filename'] = "../data/tif/" + output_filename + ".tif"
             pipeline = pdal.Pipeline(json.dumps(self.pipeline_json))
             self.logger.info(f'extracting pipeline successfull.')
             print(pipeline)
