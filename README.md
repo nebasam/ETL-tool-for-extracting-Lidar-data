@@ -37,7 +37,7 @@
 # How to Install
 >The package is available on PyPi python packages repository. You will be able to install it using the command:
 ```
-pip install Agritech
+pip install AgriTech==0.1
 ```
 <hr>
 
