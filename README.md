@@ -6,7 +6,7 @@
 - [Table of Contents](#table-of-contents)
 - [Description](#description)
 - [Project Structure](#project-structure)
-  - [Data Source Used:](#data-source-used)
+- [Data Source Used:](#data-source-used)
 - [Dependancies](#dependancies)
 - [How to Install](#how-to-install)
 - [License](#license)
@@ -23,7 +23,7 @@
 
 # Project Structure
 
-## Data Source Used:
+# Data Source Used:
 - https://registry.opendata.aws/usgs-lidar/
 
 # Dependancies
