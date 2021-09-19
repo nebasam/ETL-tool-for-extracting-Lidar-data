@@ -1,6 +1,6 @@
 # Datafetch
 > A Python package for retrieving 3DEP's geospatial data and enable users to easily manipulate, transform, subsample and visualize the data. 
-<hr>
+
 # Table of Contents
 - [Datafetch](#datafetch)
 - [Table of Contents](#table-of-contents)
